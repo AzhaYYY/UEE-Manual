@@ -10,11 +10,16 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [1.5 微信](#15-微信)
     - [1.6 QQ](#16-qq)
 - [2 驱动安装](#2-驱动安装)
+    - [2.1 显卡驱动](#21-显卡驱动)
 - [3 云深处机器狗环境配置](#3-云深处机器狗环境配置)
+    - [3.1 Anaconda3](#31-anaconda3)
+    - [3.2 安装虚拟环境](#32-安装虚拟环境)
+    - [3.3 安装CUDA 12.1](#33-安装cuda-121)
+    - [3.4 安装Isaac Gym](#34-安装isaac-gym)
+    - [3.5 安装其他依赖项](#35-安装其他依赖项)
 - [4 云纵无人机环境配置](#4-云纵无人机环境配置)
 
 ## 1 常用APP
-
 
 ### 1.1 ROS
 #### 1.1.1 ROS Noetic版
@@ -79,7 +84,7 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
 ---
 ## 2 驱动安装
 
-### 2.1 显卡驱动安装
+### 2.1 显卡驱动
 #### 2.1.1 更新系统
 ``` bash
     sudo apt update
@@ -125,5 +130,114 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
 ![NVIDIA信息](img/nivdia-smi.png)
 ---
 ## 3 云深处机器狗环境配置
+
+### 3.1 Anaconda3
+**参考链接：** https://blog.csdn.net/wyf2017/article/details/118676765
+#### 3.1.1 下载安装包
+``` bash
+    wget https://repo.anaconda.com/archive/Anaconda3-2025.06-0-Linux-x86_64.sh
+```
+#### 3.1.2 安装
+``` bash
+    chmod +x Anaconda3-2025.06-0-Linux-x86_64.sh
+    ./Anaconda3-2025.06-0-Linux-x86_64.sh
+```
+#### 3.1.3 更新环境变量配置
+``` bash
+    source ~/.bashrc
+```
+#### 3.1.4 验证安装
+``` bash
+    (base) azhay@azhay-PC:~$ conda -V
+    conda 25.5.1
+```
+---
+### 3.2 安装虚拟环境
+#### 3.2.1 创建虚拟环境
+``` bash
+    conda create -n dr_gym python=3.8 ##dr_gym为自定义环境名称
+```
+#### 3.2.2 验证创建
+``` bash
+    conda env list
+```
+``` bash
+    # conda environments:                                                           
+    #                                                                               
+    base                 * /home/azhay/anaconda3                                    
+    dr_gym                 /home/azhay/anaconda3/envs/dr_gym
+```
+#### 3.2.3 激活虚拟环境
+- 后续所有的操作都是在dr_gym 环境中
+``` bash
+    conda activate dr_gym
+```
+---
+### 3.3 安装CUDA 12.1
+**参考链接1：** https://cloud.tencent.com/developer/article/2037551
+**参考链接2：** https://blog.csdn.net/CC977/article/details/122789394
+#### 3.3.1 安装CUDA
+``` bash
+    wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
+    sudo sh cuda_12.1.1_530.30.02_linux.run
+```
+- 选择continue
+![CUDA安装1](img/CUDA安装1.png)
+- 输入accept
+![CUDA安装2](img/CUDA安装2.png)
+- 去掉安装显卡驱动的选项，选择install
+![CUDA安装3](img/CUDA安装3.png)
+#### 3.3.2 配置环境变量
+- 打开环境变量配置文件
+``` bash
+    gedit ~/.bashrc
+```
+- 在文件结尾输入以下语句
+``` text
+    export PATH=/usr/local/cuda-12.1/bin${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+- 更新环境变量配置
+``` bash
+    source ~/.bashrc
+```
+#### 3.3.3 验证安装
+``` bash
+    nvcc -V
+```
+![CUDA验证安装](img/CUDA验证安装.png)
+#### 3.3.4 安装cuDNN
+- 安装
+``` bash
+    conda install nvidia::cudnn
+```
+- 验证安装
+``` bash
+    conda install nvidia::cudnn
+```
+![cuDNN验证安装](img/cuDNN验证安装.png) 
+
+---
+### 3.4 安装Isaac Gym
+#### 3.4.1 下载安装包
+- 在https://developer.nvidia.com/isaac-gym/download网页下载安装文件IsaacGym_Preview_4_Package.tar.gz，下载后解压即可。
+![Isaac Gym安装](img/IsaacGym安装.png) 
+#### 3.4.2 激活虚拟环境
+``` bash
+    conda activate dr_gym
+```
+#### 3.4.3 安装Python包及相关依赖
+``` bash
+    cd isaacgym/python
+    pip install -e .
+```
+---
+### 3.5 安装其他依赖项
+#### 3.5.1 安装rs1_rl
+``` bash
+    git clone https://github.com/DeepRoboticsLab/Robot_Training_Cases/tree/main/Case2
+```
+
+
 ---
 ## 4 云纵无人机环境配置
