@@ -182,10 +182,13 @@ wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/
 sudo sh cuda_12.4.0_550.54.14_linux.run
 ```
 - 选择continue
+
 ![CUDA安装1](img/CUDA安装1.png)
 - 输入accept
+
 ![CUDA安装2](img/CUDA安装2.png)
 - 去掉安装显卡驱动的选项，选择install
+
 ![CUDA安装3](img/CUDA安装3.png)
 #### 3.3.2 配置环境变量
 - 打开环境变量配置文件
