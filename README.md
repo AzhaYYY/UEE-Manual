@@ -235,6 +235,17 @@ conda activate dr_gym
 cd isaacgym/python
 pip install -e .
 ```
+- 网络超时解决办法
+``` bash
+# 使用清华镜像源
+pip install -e . -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+
+# 或者使用阿里云镜像源
+pip install -e . -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+# 或者使用中科大镜像源
+pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi.mirrors.ustc.edu.cn
+```
 ---
 ## 4 云纵无人机环境配置
 **参考链接：** https://wiki.yundrone.cn/docs/Sunray-xiang-mu-jian-jie
