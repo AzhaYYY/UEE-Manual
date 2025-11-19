@@ -18,35 +18,41 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [3.4 安装Isaac Gym](#34-安装isaac-gym)
     - [3.5 安装其他依赖项](#35-安装其他依赖项)
 - [4 云纵无人机环境配置](#4-云纵无人机环境配置)
-
+    - [4.1 电脑系统配置](#41-电脑系统配置)
+    - [4.2 安装ROS](#42-安装ros)
+    - [4.3 安装PX4开发环境](#43-安装px4开发环境)
+    - [4.4 安装Sunray项目依赖项](#44-安装sunray项目依赖项)
+    - [4.5 安装编译Sunray项目](#45-安装编译sunray项目)
 ## 1 常用APP
 
 ### 1.1 ROS
 #### 1.1.1 ROS Noetic版
 **参考教程：** https://gitee.com/Mutil-Unmanned-System/mrs-tb3
 - 鱼香一键安装ros，注意对应Ubuntu版本，ubuntu20对应Noetic
-``` bash
-wget http://fishros.com/install -O fishros && . fishros
-```
+  ``` bash
+  wget http://fishros.com/install -O fishros && . fishros
+  ```
 - 安装依赖项
-``` bash
-sudo apt-get install ros-noetic-joy  ros-noetic-teleop-twist-keyboard ros-noetic-serial
-```
+  ``` bash
+  sudo apt-get install ros-noetic-joy  ros-noetic-teleop-twist-keyboard ros-noetic-serial
+  ```
 ---
 ### 1.2 Terminator(终端窗口分割器)
-``` bash
-sudo apt update
-sudo apt install terminator
-```
+- 安装
+  ``` bash
+  sudo apt update
+  sudo apt install terminator
+  ```
 ---
 ### 1.3 VSCode
 #### 1.3.1 下载安装包
 - 进入VSCode官网https://code.visualstudio.com/Download ,下载Linux x64.deb版本
 ![VSCode下载安装包](img/VSCode下载安装包.png)
 #### 1.3.2 安装软件包
-``` bash
-sudo dpkg -i 包名.deb
-```
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
 #### 1.3.3 安装依赖
 - C/C++
 - Python
@@ -60,72 +66,78 @@ sudo dpkg -i 包名.deb
 - 进入向日葵官网https://sunlogin.oray.com/download ，下载Linux x64.deb版本
 ![向日葵下载安装包](img/向日葵下载安装包.png)
 #### 1.4.2 安装软件包
-``` bash
-sudo dpkg -i 包名.deb
-```
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
 ---
 ### 1.5 微信
 #### 1.5.1 下载安装包
 - 进入微信官网https://linux.weixin.qq.com ，下载Linux x64.deb版本
 ![微信下载安装包](img/微信下载安装包.png)
 #### 1.5.2 安装软件包
-``` bash
-sudo dpkg -i 包名.deb
-```
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
 ---
 ### 1.6 QQ
 #### 1.6.1 下载安装包
 - 进入QQ官网https://im.qq.com/linuxqq/index.shtml ，下载Linux x64.deb版本
 ![QQ下载安装包](img/QQ下载安装包.png)
 #### 1.6.2 安装软件包
-``` bash
-sudo dpkg -i 包名.deb
-```
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
 ---
 ## 2 驱动安装
 
 ### 2.1 显卡驱动
 #### 2.1.1 更新系统
-``` bash
-sudo apt update
-sudo apt upgrade
-```
+- 更新系统
+  ``` bash
+  sudo apt update
+  sudo apt upgrade
+  ```
 #### 2.1.2 安装编译工具
-``` bash
-sudo apt install g++ gcc make
-```
+- 安装编译工具
+  ``` bash
+  sudo apt install g++ gcc make
+  ```
 #### 2.1.3 禁用Nouveau驱动
 - 打开黑名单配置文件
-``` bash
-sudo nano /etc/modprobe.d/blacklist.conf
-```
+  ``` bash
+  sudo nano /etc/modprobe.d/blacklist.conf
+  ```
 - 在文件末添加以下内容
-``` text
-blacklist nouveau
-options nouveau modeset=0
-```
+  ``` text
+  blacklist nouveau
+  options nouveau modeset=0
+  ```
 - 更新initramfs并重启
-``` bash
-sudo update-initramfs -u
-sudo reboot
-```
+  ``` bash
+  sudo update-initramfs -u
+  sudo reboot
+  ```
 - 验证禁用：重启后无输出表示成功
-``` bash
-lsmod | grep nouveau
-```
+  ``` bash
+  lsmod | grep nouveau
+  ```
 #### 2.1.4 安装NVIDIA驱动
 - 添加PPA并安装驱动
-``` bash
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt update
-sudo apt install nvidia-driver-580-open 
-##RTX 5050显卡需要NVIDIA开放内核模块（Open Kernel Modules），而不是传统的专有模块。
-```
+  ``` bash
+  sudo add-apt-repository ppa:graphics-drivers/ppa
+  sudo apt update
+  sudo apt install nvidia-driver-580-open 
+  ##RTX 5050显卡需要NVIDIA开放内核模块（Open Kernel Modules），而不是传统的专有模块。
+  ```
 #### 2.1.5 重启系统验证安装
-``` bash
-sudo reboot
-nvidia-smi
-```
+- 重启系统验证安装
+  ``` bash
+  sudo reboot
+  nvidia-smi
+  ```
 - 如出现以下信息则表示安装成功
 ![NVIDIA信息](img/nivdia-smi.png)
 ---
@@ -134,14 +146,14 @@ nvidia-smi
 ### 3.1 Anaconda3
 **参考链接：** https://blog.csdn.net/wyf2017/article/details/118676765
 #### 3.1.1 下载安装包
-``` bash
-wget https://repo.anaconda.com/archive/Anaconda3-2025.06-0-Linux-x86_64.sh
-```
+  ``` bash
+  wget https://repo.anaconda.com/archive/Anaconda3-2025.06-0-Linux-x86_64.sh
+  ```
 #### 3.1.2 安装
-``` bash
-chmod +x Anaconda3-2025.06-0-Linux-x86_64.sh
-./Anaconda3-2025.06-0-Linux-x86_64.sh
-```
+  ``` bash
+  chmod +x Anaconda3-2025.06-0-Linux-x86_64.sh
+  ./Anaconda3-2025.06-0-Linux-x86_64.sh
+  ```
 #### 3.1.3 更新环境变量配置
 ``` bash
 source ~/.bashrc
@@ -223,6 +235,8 @@ conda list | grep cudnn
 
 ---
 ### 3.4 安装Isaac Gym
+<font color=Red>IsaacGym暂时可以不安装，50系显卡不支持</font>
+<font color=Red>3.4.3中的网络超时解决办法可以在pip安装中使用，命令格式：pip install 安装内容 -i 镜像源网址</font>
 #### 3.4.1 下载安装包
 - 在https://developer.nvidia.com/isaac-gym/download 网页下载安装文件IsaacGym_Preview_4_Package.tar.gz，下载后解压即可。
 ![Isaac Gym安装](img/IsaacGym安装.png) 
@@ -248,4 +262,177 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
 ```
 ---
 ## 4 云纵无人机环境配置
-**参考链接：** https://wiki.yundrone.cn/docs/Sunray-xiang-mu-jian-jie
+**参考教程：** https://wiki.yundrone.cn/docs/Sunray-fang-zhen-kai-fa-huan-jing-pei-zhi
+### 4.1 电脑系统配置
+- 在电脑上安装Ubuntu20.04系统（安装方式三选一）
+  - 安装ubuntu单系统或者ubuntu+windows双系统（推荐！）
+  - 在windows中使用WSL的方式安装Ubuntu系统（一般推荐）
+  - 在windows中使用虚拟机的方式安装Ubuntu系统（不推荐）
+---
+### 4.2 安装ROS
+- 建议直接使用鱼香ROS的一键安装方式来安装ROS
+  ``` bash
+  wget http://fishros.com/install -O fishros && . fishros
+  ```
+- 安装完成之后通过roscore指令来确认是否正确安装ROS
+  ``` bash
+  roscore
+  ```
+---
+### 4.3 安装PX4开发环境
+#### 4.3.1 PX4源码配置
+- 拉取px4仓库
+  ``` bash
+  git clone https://gitee.com/yundrone_sunray2023/sunray_px4.git
+  ```
+- 进入文件夹
+  ``` bash
+  cd sunray_px4
+  ```
+- 拉取子模块
+  ``` bash
+  git submodule update --init --recursive
+  ```
+- 安装依赖包 受网络原因肯能会失败多试几次
+  ``` bash
+  ./Tools/setup/ubuntu.sh
+  ```
+  > **<font color=Red>报错：</font>**
+  > ![PX4源码配置报错1](img/PX4源码配置报错1.png)
+  > **<font color=Red>解决：</font>**
+  > 这个错误是因为 requirements.txt 中的版本语法不正确。matplotlib>=3.0.* 这种写法在较新版本的 pip 中不被支持。让我们修复这个问题：
+  > - 修复版本语法
+  > ``` bash
+  > sed -i 's/matplotlib>=3.0\.\*/matplotlib>=3.0/g' ~/sunray_px4/Tools/setup/requirements.txt
+  > ```
+  > - 进入文件夹
+  > ``` bash
+  > cd sunray_px4
+  > ```
+  > - 使用国内镜像源安装
+  > ``` bash
+  > pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r Tools/setup/requirements.txt
+  > ```
+- 编译仿真
+  ``` bash
+  make px4_sitl_default gazebo
+  ```
+  > **<font color=Red>报错：</font>**
+  > ![PX4源码配置报错2](img/PX4源码配置报错2.png)
+  > **<font color=Red>解决：</font>**
+  > 这个错误是因上一步依赖包未安装全，再多安装几遍依赖
+  > ``` bash
+  > pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r Tools/setup/requirements.txt
+  > ```
+#### 4.3.2 配置环境变量
+- 打开环境变量配置文件
+  ``` bash
+  gedit ~/.bashrc
+  ```
+- 在文件结尾输入以下语句
+  ``` text
+  source ~/sunray_px4/Tools/simulation/gazebo-classic/setup_gazebo.bash ~/sunray_px4 ~/sunray_px4/build/px4_sitl_default
+  export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic
+  export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4
+  ```
+#### 4.3.3 安装MAVROS
+- 使用二进制方式安装
+  ``` bash
+  sudo apt-get install ros-noetic-mavros*
+  ```
+- 安装GeographicLib (mavros的依赖库)
+  ``` bash
+  sudo /opt/ros/noetic/lib/mavros/install_geographiclib_datasets.sh
+  ```
+  * 这一步由于网络问题，安装时间会比较长，请耐心等待
+  * 如果安装失败，可参考如下教程[install_geographiclib_datasets.sh](https://blog.csdn.net/weixin_41865104/article/details/119418901)
+---
+### 4.4 安装Sunray项目依赖项
+- 安装VRPN，用于真机试验中获取动捕数据
+  ``` bash
+  sudo apt-get install ros-noetic-vrpn
+  ```
+---
+### 4.5 安装编译Sunray项目
+- 下载代码
+  ``` bash
+  git clone https://github.com/YunDrone-Team/Sunray.git
+  ```
+- 编译代码
+  ``` bash
+  cd Sunray
+  ## 编译
+  ./build.sh
+  ```
+  > 全选所有模块并开始编译构建
+  > ![安装编译Sunray项目报错1](img/安装编译Sunray项目报错1.png)
+  > **<font color=Red>报错：</font>**
+  > ![安装编译Sunray项目报错2](img/安装编译Sunray项目报错2.png)
+  > **<font color=Red>1.解决sunray_detection构建失败：</font>**
+  > 仿真不需要，硬件需要
+  > **硬件环境下：**
+  > 方案1：安装 RKNN Toolkit（如果你有 Rockchip 设备）
+  > ``` bash
+  > ## 创建第三方库目录
+  > mkdir -p ~/libs
+  > cd ~/libs
+  > 
+  > # 下载 RKNN Toolkit（需要从官方获取）
+  > # 由于版权原因，需要从 Rockchip 官网下载
+  > # 或者使用 wget 下载（如果知道下载链接）
+  > wget https://github.com/rockchip-linux/rknn-toolkit2/archive/refs/tags/v1.5.2.tar.gz
+  > 
+  > # 解压并安装
+  > tar -xzf rknn-toolkit2-*.tar.gz
+  > cd rknn-toolkit2-*
+  > 
+  > # 安装 Python 包
+  > pip3 install -r requirements.txt
+  > pip3 install .
+  > 
+  > # 设置头文件路径
+  > export RKNN_API_PATH=~/libs/rknn-toolkit2-*/runtime/RKNN-RT2/rknn-api/include
+  > ```
+  > **仿真环境下：**
+  > 方案2：临时注释掉 NPU 相关代码
+  > ``` bash
+  > cd /home/zq/Sunray/External_Module/sunray_detection
+  > 
+  > # 备份文件
+  > cp detection_libs/src/inference_backend/npu/rknn/rknn_runner.h detection_libs/src/inference_backend/npu/rknn/rknn_runner.h.bak
+  > 
+  > # 在文件开头添加禁用宏
+  > echo -e "#ifndef DISABLE_NPU\n#define DISABLE_NPU\n#endif\n\n$(cat detection_libs/src/inference_backend/npu/rknn/rknn_runner.h)" > detection_libs/src/inference_backend/npu/rknn/rknn_runner.h
+  > ```
+  > **<font color=Red>2.解决sunray_formation构建失败：</font>**
+  > ``` bash
+  > sudo apt-get install -y \
+  >   libsfml-dev \
+  >   libsfml-system2.5 \
+  >   libsfml-window2.5 \
+  >   libsfml-graphics2.5 \
+  >   libsfml-audio2.5 \
+  >   libsfml-network2.5
+  > ```
+- 写入环境变量
+  ``` bash
+  ## 打开环境变量文件
+  gedit ~/.bashrc
+  ## 写入环境变量
+  source ~/Sunray/devel/setup.bash
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/scence_models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/sensor_models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/drone_models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/world_models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/ugv_models
+  export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/texture
+  ## 刷新环境变量
+  source ~/.bashrc
+  ## 为了确认你的包路径已经设置，回显 ROS_PACKAGE_PATH 变量
+  echo $ROS_PACKAGE_PATH
+  ```
+- 编译后运行以下指令确认安装成功
+  ``` bash
+  roslaunch sunray_simulator sunray_sim_1uav.launch
+  ```
