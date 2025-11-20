@@ -358,6 +358,7 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   > **<font color="#FF0000">报错：</font>**
   > 
   > ![PX4配置环境变量报错1](img/PX4配置环境变量报错1.png)
+  > 
   > 问题是重复路径，原因是执行px4的setup_gazebo.bash脚本输出了GAZEBO_PLUGIN_PATH、GAZEBO_MODEL_PATH、LD_LIBRARY_PATH三个路径，后续其他的脚本可能再次追加了相同的路径，最终导致了重复输出
   > ![PX4配置环境变量报错2](img/PX4配置环境变量报错2.png)
   > 
