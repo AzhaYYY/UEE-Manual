@@ -247,8 +247,8 @@ conda list | grep cudnn
 
 ---
 ### 3.4 安装Isaac Gym
-<font color=Red>IsaacGym暂时可以不安装，50系显卡不支持</font>
-<font color=Red>3.4.3中的网络超时解决办法可以在pip安装中使用，命令格式：pip install 安装内容 -i 镜像源网址</font>
+<font color="#FF0000">IsaacGym暂时可以不安装，50系显卡不支持</font>
+<font color="#FF0000">3.4.3中的网络超时解决办法可以在pip安装中使用，命令格式：pip install 安装内容 -i 镜像源网址</font>
 #### 3.4.1 下载安装包
 - 在https://developer.nvidia.com/isaac-gym/download 网页下载安装文件IsaacGym_Preview_4_Package.tar.gz，下载后解压即可。
 ![Isaac Gym安装](img/IsaacGym安装.png) 
@@ -309,10 +309,10 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ``` bash
   ./Tools/setup/ubuntu.sh
   ```
-  > **<font color=Red>报错：</font>**
+  > **<font color="#FF0000">报错：</font>**
   > ![PX4源码配置报错1](img/PX4源码配置报错1.png)
   > 
-  > **<font color=Red>解决：</font>**
+  > **<font color="#FF0000">解决：</font>**
   > 这个错误是因为 requirements.txt 中的版本语法不正确。matplotlib>=3.0.* 这种写法在较新版本的 pip 中不被支持。让我们修复这个问题：
   > - 修复版本语法
   > ``` bash
@@ -330,10 +330,10 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ``` bash
   make px4_sitl_default gazebo
   ```
-  > **<font color=Red>报错：</font>**
+  > **<font color="#FF0000">报错：</font>**
   > ![PX4源码配置报错2](img/PX4源码配置报错2.png)
   > 
-  > **<font color=Red>解决：</font>**
+  > **<font color="#FF0000">解决：</font>**
   > 这个错误是因为上一步依赖包未安装全，再多安装几遍依赖
   > 或者是因为未退出conda虚拟环境
   > ``` bash
@@ -351,12 +351,12 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic
   export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4
   ```
-  > **<font color=Red>报错：</font>**
+  > **<font color="#FF0000">报错：</font>**
   > ![PX4配置环境变量报错1](img/PX4配置环境变量报错1.png)
   > 问题是重复路径，原因是执行px4的setup_gazebo.bash脚本输出了GAZEBO_PLUGIN_PATH、GAZEBO_MODEL_PATH、LD_LIBRARY_PATH三个路径，后续其他的脚本可能再次追加了相同的路径，最终导致了重复输出
   > ![PX4配置环境变量报错2](img/PX4配置环境变量报错2.png)
   > 
-  > **<font color=Red>解决(不确定对后续的影响)：</font>**
+  > **<font color="#FF0000">解决(不确定对后续的影响)：</font>**
   > ``` bash
   > # 去掉这行：
   > # source ~/sunray_px4/Tools/simulation/gazebo-classic/setup_gazebo.bash ~/sunray_px4 ~/sunray_px4/build/px4_sitl_default
@@ -398,10 +398,10 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   > 全选所有模块并开始编译构建
   > ![安装编译Sunray项目报错1](img/安装编译Sunray项目报错1.png)
   > 
-  > **<font color=Red>报错：</font>**
+  > **<font color="#FF0000">报错：</font>**
   > ![安装编译Sunray项目报错2](img/安装编译Sunray项目报错2.png)
   > 
-  > **<font color=Red>1.解决sunray_detection构建失败：</font>**
+  > **<font color="#FF0000">1.解决sunray_detection构建失败：</font>**
   > 硬件需要，仿真不需要，可以先忽略该报错
   > **硬件环境下：**
   > 方案1：安装 RKNN Toolkit（如果你有 Rockchip 设备）
@@ -438,7 +438,7 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   > echo -e "#ifndef DISABLE_NPU\n#define DISABLE_NPU\n#endif\n\n$(cat detection_libs/src/inference_backend/npu/rknn/rknn_runner.h)" > detection_libs/src/inference_backend/npu/rknn/rknn_runner.h
   > ```
   > 
-  > **<font color=Red>2.解决sunray_formation构建失败：</font>**
+  > **<font color="#FF0000">2.解决sunray_formation构建失败：</font>**
   > ``` bash
   > sudo apt-get install -y \
   >   libsfml-dev \
@@ -470,10 +470,10 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ``` bash
   roslaunch sunray_simulator sunray_sim_1uav.launch
   ```
-  > **<font color=Red>报错1：</font>**
+  > **<font color="#FF0000">报错1：</font>**
   > ![执行launch示例报错1](img/执行launch示例报错1.png)
   > 
-  > **<font color=Red>解决1：</font>**
+  > **<font color="#FF0000">解决1：</font>**
   > 这个错误是因为sunray_px4和Sunray环境配置路径顺序错误
   > ``` bash
   > ## 错误顺序：先完整设置 PX4 环境（source + export），然后设置 Sunray 环境（source + export）
@@ -507,11 +507,11 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/texture
   > ```
   > 
-  > **<font color=Red>报错2：</font>**
+  > **<font color="#FF0000">报错2：</font>**
   > ![执行launch示例报错2_1](img/执行launch示例报错2_1.png)
   > ![执行launch示例报错2_2](img/执行launch示例报错2_2.png)
   > 
-  > **<font color=Red>解决2：</font>**
+  > **<font color="#FF0000">解决2：</font>**
   > 这个错误是因为在conda虚拟环境下的ROS Python包未安装
   > ``` bash
   > ## 可以通过退出conda环境再运行(更建议)
