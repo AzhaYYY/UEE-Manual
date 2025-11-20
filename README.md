@@ -10,6 +10,7 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [1.5 微信](#15-微信)
     - [1.6 QQ](#16-qq)
     - [1.7 WPS](#17-wps)
+    - [1.8 搜狗输入法](#18-搜狗输入法)
 - [2 驱动安装](#2-驱动安装)
     - [2.1 显卡驱动](#21-显卡驱动)
 - [3 云深处机器狗环境配置](#3-云深处机器狗环境配置)
@@ -101,6 +102,43 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
 - 安装
   ``` bash
   sudo dpkg -i 包名.deb
+  ```
+---
+### 1.8 搜狗输入法
+#### 1.8.1 下载安装包
+- 进入搜狗输入法官网https://shurufa.sogou.com/linux ，下载Linux x64.deb版本
+![搜狗输入法下载安装包](img/搜狗输入法下载安装包.png)
+#### 1.8.2 安装fcitx
+- 安装
+  ``` bash
+  sudo apt install fcitx
+  ```
+- 应用fcitx
+![搜狗输入法安装fcitx1](img/搜狗输入法安装fcitx1.png)
+<div align=center><img src="img/搜狗输入法安装fcitx2.png"/></div>
+
+- 设置fcitx开机自启动
+  ``` bash
+  sudo cp /usr/share/applications/fcitx.desktop /etc/xdg/autostart/
+  ```
+- 卸载ibus
+  ``` bash
+  sudo apt purge ibus
+  ```
+#### 1.8.3 安装软件包
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
+- 安装输入法依赖
+  ``` bash
+  sudo apt install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
+  sudo apt install libgsettings-qt1
+  ```
+#### 1.8.4 重启电脑
+- 重启
+  ``` bash
+  sudo reboot
   ```
 ---
 ## 2 驱动安装
