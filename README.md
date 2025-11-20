@@ -9,6 +9,7 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [1.4 向日葵](#14-向日葵)
     - [1.5 微信](#15-微信)
     - [1.6 QQ](#16-qq)
+    - [1.7 WPS](#17-wps)
 - [2 驱动安装](#2-驱动安装)
     - [2.1 显卡驱动](#21-显卡驱动)
 - [3 云深处机器狗环境配置](#3-云深处机器狗环境配置)
@@ -86,6 +87,18 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
 - 进入QQ官网https://im.qq.com/linuxqq/index.shtml ，下载Linux x64.deb版本
 ![QQ下载安装包](img/QQ下载安装包.png)
 #### 1.6.2 安装软件包
+- 安装
+  ``` bash
+  sudo dpkg -i 包名.deb
+  ```
+---
+### 1.7 WPS
+#### 1.7.1 下载安装包
+- 进入WPS官网https://www.wps.cn/product/wpslinux ，下载Linux x64.deb版本
+![WPS下载安装包1](img/WPS下载安装包1.png)
+<div align=center><img src="img/WPS下载安装包2.png"/></div>
+
+#### 1.7.2 安装软件包
 - 安装
   ``` bash
   sudo dpkg -i 包名.deb
@@ -299,6 +312,7 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ```
   > **<font color=Red>报错：</font>**
   > ![PX4源码配置报错1](img/PX4源码配置报错1.png)
+  > 
   > **<font color=Red>解决：</font>**
   > 这个错误是因为 requirements.txt 中的版本语法不正确。matplotlib>=3.0.* 这种写法在较新版本的 pip 中不被支持。让我们修复这个问题：
   > - 修复版本语法
@@ -319,9 +333,12 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ```
   > **<font color=Red>报错：</font>**
   > ![PX4源码配置报错2](img/PX4源码配置报错2.png)
+  > 
   > **<font color=Red>解决：</font>**
-  > 这个错误是因上一步依赖包未安装全，再多安装几遍依赖
+  > 这个错误是因为上一步依赖包未安装全，再多安装几遍依赖
+  > 或者是因为未退出conda虚拟环境
   > ``` bash
+  > conda deactivate
   > pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r Tools/setup/requirements.txt
   > ```
 #### 4.3.2 配置环境变量
@@ -366,10 +383,12 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ```
   > 全选所有模块并开始编译构建
   > ![安装编译Sunray项目报错1](img/安装编译Sunray项目报错1.png)
+  > 
   > **<font color=Red>报错：</font>**
   > ![安装编译Sunray项目报错2](img/安装编译Sunray项目报错2.png)
+  > 
   > **<font color=Red>1.解决sunray_detection构建失败：</font>**
-  > 仿真不需要，硬件需要
+  > 硬件需要，仿真不需要，可以先忽略该报错
   > **硬件环境下：**
   > 方案1：安装 RKNN Toolkit（如果你有 Rockchip 设备）
   > ``` bash
@@ -404,6 +423,7 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   > # 在文件开头添加禁用宏
   > echo -e "#ifndef DISABLE_NPU\n#define DISABLE_NPU\n#endif\n\n$(cat detection_libs/src/inference_backend/npu/rknn/rknn_runner.h)" > detection_libs/src/inference_backend/npu/rknn/rknn_runner.h
   > ```
+  > 
   > **<font color=Red>2.解决sunray_formation构建失败：</font>**
   > ``` bash
   > sudo apt-get install -y \
@@ -436,3 +456,58 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   ``` bash
   roslaunch sunray_simulator sunray_sim_1uav.launch
   ```
+  > **<font color=Red>报错1：</font>**
+  > ![执行launch示例报错1](img/执行launch示例报错1.png)
+  > 
+  > **<font color=Red>解决1：</font>**
+  > 这个错误是因为sunray_px4和Sunray环境配置路径顺序错误
+  > ``` bash
+  > ## 错误顺序：先完整设置 PX4 环境（source + export），然后设置 Sunray 环境（source + export）
+  > source ~/sunray_px4/Tools/simulation/gazebo-classic/setup_gazebo.bash ~/sunray_px4 ~/sunray_px4/build/px4_sitl_default
+  > export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic
+  > export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4
+  > 
+  > source ~/Sunray/devel/setup.bash
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/scence_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/sensor_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/drone_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/world_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/ugv_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/texture
+  > ```
+  > ``` bash
+  > ## 正确顺序：先初始化所有框架，后配置具体路径
+  > source ~/sunray_px4/Tools/simulation/gazebo-classic/setup_gazebo.bash ~/sunray_px4 ~/sunray_px4/build/px4_sitl_default
+  > source ~/Sunray/devel/setup.bash
+  > 
+  > export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic
+  > export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4
+  > 
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/scence_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/sensor_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/drone_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/world_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/models/ugv_models
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/Sunray/Simulation/sunray_simulator/texture
+  > ```
+  > 
+  > **<font color=Red>报错2：</font>**
+  > ![执行launch示例报错2_1](img/执行launch示例报错2_1.png)
+  > ![执行launch示例报错2_2](img/执行launch示例报错2_2.png)
+  > 
+  > **<font color=Red>解决2：</font>**
+  > 这个错误是因为在conda虚拟环境下的ROS Python包未安装
+  > ``` bash
+  > ## 可以通过退出conda环境再运行(更建议)
+  > conda deactivate
+  > roslaunch sunray_simulator sunray_sim_1uav.launch
+  > ```
+  > ``` bash
+  > ## 或者在conda环境下安装ROS Python包,再运行
+  > conda activate base ## base为自定义环境名词
+  > pip install rospkg catkin-pkg empy defusedxml
+  > roslaunch sunray_simulator sunray_sim_1uav.launch
+  > ```
+---
