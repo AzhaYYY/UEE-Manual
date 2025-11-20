@@ -2,7 +2,7 @@
 ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配置
 
 ## 目录
-- [1 常用APP](#1-常用APP)
+- [1 常用APP](#1-常用app)
     - [1.1 ROS](#11-ros)
     - [1.2 Terminator(终端窗口分割器)](#12-terminator终端窗口分割器)
     - [1.3 VSCode](#13-vscode)
@@ -17,7 +17,6 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [3.2 安装虚拟环境](#32-安装虚拟环境)
     - [3.3 安装CUDA 12.4](#33-安装cuda-124)
     - [3.4 安装Isaac Gym](#34-安装isaac-gym)
-    - [3.5 安装其他依赖项](#35-安装其他依赖项)
 - [4 云纵无人机环境配置](#4-云纵无人机环境配置)
     - [4.1 电脑系统配置](#41-电脑系统配置)
     - [4.2 安装ROS](#42-安装ros)
@@ -352,6 +351,21 @@ pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi
   export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic
   export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/sunray_px4
   ```
+  > **<font color=Red>报错：</font>**
+  > ![PX4配置环境变量报错1](img/PX4配置环境变量报错1.png)
+  > 问题是重复路径，原因是执行px4的setup_gazebo.bash脚本输出了GAZEBO_PLUGIN_PATH、GAZEBO_MODEL_PATH、LD_LIBRARY_PATH三个路径，后续其他的脚本可能再次追加了相同的路径，最终导致了重复输出
+  > ![PX4配置环境变量报错2](img/PX4配置环境变量报错2.png)
+  > 
+  > **<font color=Red>解决(不确定对后续的影响)：</font>**
+  > ``` bash
+  > # 去掉这行：
+  > # source ~/sunray_px4/Tools/simulation/gazebo-classic/setup_gazebo.bash ~/sunray_px4 ~/sunray_px4/build/px4_sitl_default
+  > 
+  > # 改为手动设置：
+  > export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/sunray_px4/build/px4_sitl_default/build_gazebo-classic
+  > export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/sunray_px4/Tools/simulation/gazebo-classic/sitl_gazebo-classic/models
+  > export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/sunray_px4/build/px4_sitl_default/build_gazebo-classic
+  > ```
 #### 4.3.3 安装MAVROS
 - 使用二进制方式安装
   ``` bash
