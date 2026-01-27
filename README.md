@@ -19,6 +19,7 @@ ubuntu20.04常用APP，及针对云深处机器狗和云纵无人机的环境配
     - [3.2 安装虚拟环境](#32-安装虚拟环境)
     - [3.3 安装CUDA 12.4](#33-安装cuda-124)
     - [3.4 安装Isaac Gym](#34-安装isaac-gym)
+    - [3.5 安装Isaac Lab](#35-安装isaac-lab)
 - [4 云纵无人机环境配置](#4-云纵无人机环境配置)
     - [4.1 电脑系统配置](#41-电脑系统配置)
     - [4.2 安装ROS](#42-安装ros)
@@ -321,6 +322,39 @@ pip install -e . -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirro
 # 或者使用中科大镜像源
 pip install -e . -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host pypi.mirrors.ustc.edu.cn
 ```
+---
+### 3.5 安装Isaac Lab  
+**系统配置：** Ubuntu22.04
+**参考教程：** https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/pip_installation.html#
+#### 3.5.1 创建conda环境并激活
+ ``` bash
+conda create -n env_isaaclab python=3.11
+conda activate env_isaaclab
+```
+#### 3.5.2 安装IsaacSim
+ ``` bash
+pip install "isaacsim[all,extscache]==5.1.0" --extra-index-url https://pypi.nvidia.com
+```
+#### 3.5.3 安装PyTorch
+ ``` bash
+pip install -U torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
+```
+#### 3.5.4 安装IsaacLab
+ ``` bash
+git clone https://github.com/isaac-sim/IsaacLab.git
+sudo apt install cmake build-essential
+./isaaclab.sh --install # or "./isaaclab.sh -i"
+```
+#### 3.5.5 验证IsaacLab
+ ``` bash
+# Option 1: Using the isaaclab.sh executable
+# note: this works for both the bundled python and the virtual environment
+./isaaclab.sh -p scripts/tutorials/00_sim/create_empty.py
+
+# Option 2: Using python in your virtual environment
+python scripts/tutorials/00_sim/create_empty.py
+```
+![IsaacLab验证安装](img\IsaacLab验证安装.jpg)
 ---
 ## 4 云纵无人机环境配置
 **参考教程：** https://wiki.yundrone.cn/docs/Sunray-fang-zhen-kai-fa-huan-jing-pei-zhi
