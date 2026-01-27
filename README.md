@@ -354,7 +354,7 @@ sudo apt install cmake build-essential
 # Option 2: Using python in your virtual environment
 python scripts/tutorials/00_sim/create_empty.py
 ```
-![IsaacLab验证安装](img\IsaacLab验证安装.jpg)
+![IsaacLab验证安装](img/IsaacLab验证安装.jpg)
 ---
 ## 4 云纵无人机环境配置
 **参考教程：** https://wiki.yundrone.cn/docs/Sunray-fang-zhen-kai-fa-huan-jing-pei-zhi
